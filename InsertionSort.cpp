@@ -9,10 +9,14 @@ InsertionSort::InsertionSort()
 void InsertionSort::Sort(std::vector<int>& array)
 {
 	int perms{};
+
+	//делим массив на две части (отсортированная и нет)
 	for (int index = 1; index < array.size(); index++) {
 		int elem = array[index];
+		//tmpIndex - индекс содержащийся в отсортированной части
 		int tmpIndex = index - 1;
 
+		//сдвигаем отсортированную часть, чтобы вставить elem на его место
 		while (tmpIndex >= 0 && Compare(elem, array[tmpIndex])) {
 			array[tmpIndex + 1] = array[tmpIndex];
 			tmpIndex--;
