@@ -1,0 +1,396 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Tests</class>
+ <widget class="QWidget" name="Tests">
+  <property name="windowModality">
+   <enum>Qt::ApplicationModal</enum>
+  </property>
+  <property name="enabled">
+   <bool>true</bool>
+  </property>
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>536</width>
+    <height>492</height>
+   </rect>
+  </property>
+  <property name="sizePolicy">
+   <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+    <horstretch>0</horstretch>
+    <verstretch>0</verstretch>
+   </sizepolicy>
+  </property>
+  <property name="contextMenuPolicy">
+   <enum>Qt::PreventContextMenu</enum>
+  </property>
+  <property name="windowTitle">
+   <string>Tests</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">QWidget{
+	background: rgb(73,73,73);
+	border: 3px solid rgb(43,43,43);
+	color: white;
+}
+QLabel, QProgressBar, QPushButton{
+	border: none;
+}</string>
+  </property>
+  <layout class="QGridLayout" name="gridLayout">
+   <property name="verticalSpacing">
+    <number>10</number>
+   </property>
+   <item row="0" column="2">
+    <widget class="QWidget" name="testResults" native="true">
+     <layout class="QVBoxLayout" name="verticalLayout">
+      <item>
+       <widget class="QLabel" name="testLabel">
+        <property name="text">
+         <string/>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="Line" name="line">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <spacer name="verticalSpacer_2">
+        <property name="orientation">
+         <enum>Qt::Vertical</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>20</width>
+          <height>40</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item>
+       <widget class="QLabel" name="testDescription">
+        <property name="text">
+         <string/>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="Line" name="line_2">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <spacer name="verticalSpacer_3">
+        <property name="orientation">
+         <enum>Qt::Vertical</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>20</width>
+          <height>40</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item>
+       <widget class="QLabel" name="totalTestTime">
+        <property name="text">
+         <string/>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="Line" name="line_3">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <spacer name="verticalSpacer_4">
+        <property name="orientation">
+         <enum>Qt::Vertical</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>20</width>
+          <height>40</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item>
+       <widget class="QLabel" name="averageTestTime">
+        <property name="text">
+         <string/>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="Line" name="averageLine">
+        <property name="enabled">
+         <bool>true</bool>
+        </property>
+        <property name="frameShadow">
+         <enum>QFrame::Sunken</enum>
+        </property>
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item row="0" column="1">
+    <widget class="Line" name="line_5">
+     <property name="orientation">
+      <enum>Qt::Vertical</enum>
+     </property>
+    </widget>
+   </item>
+   <item row="3" column="2">
+    <widget class="QProgressBar" name="testProgressBar">
+     <property name="styleSheet">
+      <string notr="true">QProgressBar{
+	border: 2px solid rgb(43,43,43); 
+	background: rgb(143,143,143);
+	border-radius: 4px; 
+	color: white; 
+	text-align: center;
+}
+QProgressBar::chunk{
+	background: #ac68cc
+}</string>
+     </property>
+     <property name="value">
+      <number>24</number>
+     </property>
+    </widget>
+   </item>
+   <item row="0" column="0">
+    <widget class="QListWidget" name="testList">
+     <property name="enabled">
+      <bool>false</bool>
+     </property>
+     <property name="focusPolicy">
+      <enum>Qt::ClickFocus</enum>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QListWidget{
+	border: 3px solid rgb(43,43,43);
+	border-bottom: none;
+	background:rgb(45,45,45);
+	color:white;
+}
+QListWidget::item{
+	height: 26px;
+	padding: 5px;
+	margin: 0 0 5px 0;
+	border-radius: 3;
+	background:rgb(73,73,73);
+}
+QListWidget::item:selected{
+	background: rgb(55,55,55);
+	border: 2px solid rgb(85, 85, 85);
+	border-radius: 3;
+	color:white;
+}
+
+QListWidget::item:hover:!selected{
+	background: rgb(85, 85, 85);
+}
+
+QListWidget::indicator:checked {
+   image: url(:/src/Icons/success.png);
+}
+
+QListWidget::indicator:indeterminate {
+    image: url(:/src/Icons/failure.png);
+}
+QListWidget::indicator:unchecked {
+    image: none;
+}
+
+
+</string>
+     </property>
+     <property name="frameShape">
+      <enum>QFrame::NoFrame</enum>
+     </property>
+     <property name="verticalScrollBarPolicy">
+      <enum>Qt::ScrollBarAlwaysOff</enum>
+     </property>
+     <property name="horizontalScrollBarPolicy">
+      <enum>Qt::ScrollBarAlwaysOff</enum>
+     </property>
+     <property name="sizeAdjustPolicy">
+      <enum>QAbstractScrollArea::AdjustToContentsOnFirstShow</enum>
+     </property>
+     <property name="autoScroll">
+      <bool>false</bool>
+     </property>
+     <property name="editTriggers">
+      <set>QAbstractItemView::NoEditTriggers</set>
+     </property>
+     <property name="showDropIndicator" stdset="0">
+      <bool>false</bool>
+     </property>
+     <property name="defaultDropAction">
+      <enum>Qt::IgnoreAction</enum>
+     </property>
+     <property name="selectionMode">
+      <enum>QAbstractItemView::SingleSelection</enum>
+     </property>
+     <property name="currentRow">
+      <number>0</number>
+     </property>
+     <item>
+      <property name="text">
+       <string>Test #1</string>
+      </property>
+      <property name="checkState">
+       <enum>Unchecked</enum>
+      </property>
+      <property name="flags">
+       <set>ItemIsSelectable|ItemIsEnabled|ItemIsAutoTristate</set>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Test #2</string>
+      </property>
+      <property name="checkState">
+       <enum>Unchecked</enum>
+      </property>
+      <property name="flags">
+       <set>ItemIsSelectable|ItemIsEnabled|ItemIsAutoTristate</set>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Test #3</string>
+      </property>
+      <property name="checkState">
+       <enum>Unchecked</enum>
+      </property>
+      <property name="flags">
+       <set>ItemIsSelectable|ItemIsEnabled|ItemIsAutoTristate</set>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Test #4</string>
+      </property>
+      <property name="checkState">
+       <enum>Unchecked</enum>
+      </property>
+      <property name="flags">
+       <set>ItemIsSelectable|ItemIsEnabled|ItemIsAutoTristate</set>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Test #5</string>
+      </property>
+      <property name="checkState">
+       <enum>Unchecked</enum>
+      </property>
+      <property name="flags">
+       <set>ItemIsSelectable|ItemIsEnabled|ItemIsAutoTristate</set>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Test #6</string>
+      </property>
+      <property name="checkState">
+       <enum>Unchecked</enum>
+      </property>
+      <property name="flags">
+       <set>ItemIsSelectable|ItemIsEnabled|ItemIsAutoTristate</set>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Test #7</string>
+      </property>
+      <property name="checkState">
+       <enum>Unchecked</enum>
+      </property>
+      <property name="flags">
+       <set>ItemIsSelectable|ItemIsEnabled|ItemIsAutoTristate</set>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Test #8</string>
+      </property>
+      <property name="checkState">
+       <enum>Unchecked</enum>
+      </property>
+      <property name="flags">
+       <set>ItemIsSelectable|ItemIsEnabled|ItemIsAutoTristate</set>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Test #9</string>
+      </property>
+      <property name="checkState">
+       <enum>Unchecked</enum>
+      </property>
+      <property name="flags">
+       <set>ItemIsSelectable|ItemIsEnabled|ItemIsAutoTristate</set>
+      </property>
+     </item>
+    </widget>
+   </item>
+   <item row="2" column="0" colspan="3">
+    <widget class="QPushButton" name="launchTestButton">
+     <property name="styleSheet">
+      <string notr="true">QPushButton{
+	background: rgb(93, 93, 93);
+	border: 2px solid rgb(43,43,43);
+	border-radius: 6px;
+	color: white;
+	margin: 5%;
+	padding: 5px;
+	spacing: 3px;
+	font: 700 10pt &quot;Arial&quot;;
+}
+
+QPushButton:hover{
+	background: rgb(103, 103, 103);
+}
+
+QPushButton:pressed{
+	background: rgb(53,53,53);
+}
+
+</string>
+     </property>
+     <property name="text">
+      <string>Launch test</string>
+     </property>
+    </widget>
+   </item>
+   <item row="3" column="0">
+    <widget class="QLabel" name="status">
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
