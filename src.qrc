@@ -1,0 +1,15 @@
+<RCC>
+    <qresource prefix="/src">
+        <file>Icons/arrowDown.png</file>
+        <file>Icons/arrowLeft.png</file>
+        <file>Icons/arrowRight.png</file>
+        <file>Icons/arrowUp.png</file>
+        <file>Icons/exit.png</file>
+        <file>Icons/open.png</file>
+        <file>Icons/redo.png</file>
+        <file>Icons/save.png</file>
+        <file>Icons/undo.png</file>
+        <file>Icons/failure.png</file>
+        <file>Icons/success.png</file>
+    </qresource>
+</RCC>
