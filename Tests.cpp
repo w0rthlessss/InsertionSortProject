@@ -7,18 +7,18 @@
     Инициализация интерфейса, контрольных значений и таймера
     Связывание интерфейса с функциями
 */
-Tests::Tests(QWidget *parent) :
+Tests::Tests(QWidget *parent) ://parent указатель на базовый класс в qt
     QWidget(parent),
     ui(new Ui::Tests)
 {
     //Инициализация интерфейса и контрольных значений
-    ui->setupUi(this);
+    ui->setupUi(this);//setupUi инициализация интерфейса
     testIndex = 0;
     numberOfArrays = 100;
 
     timer = new QElapsedTimer;
 
-    //Заполнение начальных значений интерфейса
+    //Заполнение начальных значений интерфейса шаблон для всех тестов
     ui->testProgressBar->setValue(0);
     ui->testDescription->setText("Test adding " + QString::number(numberOfArrays) + " arrays in database");
     ui->averageTestTime->setText("Average time: ");
@@ -31,7 +31,7 @@ Tests::Tests(QWidget *parent) :
 
 /*
     Тест добавления n массивов в БД
-*/
+*///обращаемся к файлу QFile файловый поток
 bool Tests::AddArraysTest(){
     database = new QFile("Databases/databaseForTests.txt");
 
@@ -40,7 +40,7 @@ bool Tests::AddArraysTest(){
         //Значение для отображения в ProgressBar, зависящее от размера массива
         int progressBarPercentage = i * 100 / numberOfArrays;
         ui->testProgressBar->setValue(progressBarPercentage);
-
+        // global- возвращет указатель на рандом генератор-> bounded-границы в рaндоме qt
         QVector<int> temporaryArray(QRandomGenerator::global()->bounded(1, 1000));
         RandomFillingOfArray(&temporaryArray);
         allArrays.push_back(DatabaseData(i + 1, temporaryArray, {}));
@@ -51,7 +51,7 @@ bool Tests::AddArraysTest(){
 
     allArrays.clear();
 
-    //При успешной записи
+    //При успешной записи(записывавем 100% в прогрессбар)
     if(isCorrect){
         ui->testProgressBar->setValue(100);
         return true;
@@ -89,11 +89,11 @@ bool Tests::SortArraysTest(){
         }
 
         //Сортировка массива
-        SortingArray(&allArrays[i], new QProgressBar);
+        SortingArray(&allArrays[i], new QProgressBar);//QProgressBar заглушка 
     }
 
     //Запись отсортированных массивов в БД
-    if(!WriteDataInDatabase(database, &allArrays)){
+    if(!WriteDataInDatabase(database, &allArrays)){// не удалось записать сорт массив
         ui->status->setText("Unable to write data in test database!");
         ui->testProgressBar->setValue(0);
         allArrays.clear();
