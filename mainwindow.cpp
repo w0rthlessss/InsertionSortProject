@@ -203,6 +203,12 @@ void MainWindow::AddNewArray(){
     будь то изменение элемента массива, добавление нового массива или удаление элемента
 */
 void MainWindow::SaveChangesForDatabase(){
+
+    if(!isDatabaseSaved){
+        QMessageBox msg(QMessageBox::Question, MainWindow::windowTitle(), "Are you sure you want to update database?", QMessageBox::Yes | QMessageBox::No);
+        if(msg.exec() != QMessageBox::Accepted) return;
+    }
+
     QFile database("Databases/database.txt");
 
     if(!WriteDataInDatabase(&database, &allArrays)){
@@ -213,9 +219,10 @@ void MainWindow::SaveChangesForDatabase(){
 
     UpdateArrayListUI();
 
-    QMessageBox msg(QMessageBox::Information, MainWindow::windowTitle(), "Database was successfully updated!");
-    msg.exec();
-
+    if(!isDatabaseSaved){
+        QMessageBox msg(QMessageBox::Information, MainWindow::windowTitle(), "Database was successfully updated!");
+        msg.exec();
+    }
     isDatabaseSaved = true;
 }
 
@@ -262,31 +269,40 @@ bool MainWindow::CheckIfPreviousCellIsNotEmpty(QTableWidgetItem *clickedElement)
     добавлении нового элемента или обновлении уже существующего
 */
 void MainWindow::UpdateArrayElementOnChange(QTableWidgetItem *changedElement){
+    //Инициализация переменных для координат измененного элемента
     int row = changedElement->row();
     int col = changedElement->column();
     int arrayIndex = ui->arrayList->currentRow();
 
+    //Конвертация измененного значения из QString в int
     bool isValidInput = true;
     int newValue = changedElement->text().toInt(&isValidInput);
 
+    //Если перед элементом есть пустота, то обнуляем изменения
     if(!CheckIfPreviousCellIsNotEmpty(changedElement)){
         changedElement->setText("");
         return;
     }
 
+    //Если элемент добавлен после конца массива
     if(allArrays[arrayIndex].originalArray.size() == (row * 10 + col)){
+        //Если не введено ничего, не применяем изменения
         if(changedElement->text()=="") return;
+        //Иначе расширяем текущий массив
         else {
             allArrays[arrayIndex].originalArray.resize(row * 10 + col + 1);
         }
     }
 
+    //Если изменения не произошло
     if(newValue == allArrays[arrayIndex].originalArray[row * 10 + col] || !isValidInput) return;
 
+    //Применяем изменения в массиве
     allArrays[arrayIndex].originalArray[row * 10 + col] = newValue;
     allArrays[arrayIndex].sortedArray.clear();
     ui->arrayTabs->setTabVisible(1, false);
 
+    //Обновляем таблицу
     if(row + 1 == ui->originalArrayTable->rowCount() && col + 1 == ui->originalArrayTable->columnCount()){
         ui->originalArrayTable->setRowCount(row + 2);
         SetupTable(ui->originalArrayTable);
